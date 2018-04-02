@@ -73,7 +73,6 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
         user = parent.getUser();
         client = parent.getClient();
         client.registerListener(new CustomObserver(client, this));
-
     }
 
 

@@ -20,6 +20,7 @@ public class MainActivity extends FragmentActivity {
 
     private User user = null;
     private NetworkClient client;
+    private boolean mIsBound;
 
 
 
@@ -41,7 +42,15 @@ public class MainActivity extends FragmentActivity {
         mTabHost.addTab(mTabHost.newTabSpec("Users").setIndicator("Users"),
                 UsersFragment.class, null);
 
+        setUpBackgroundWorker();
+
     }
+
+    private void setUpBackgroundWorker(){
+        Intent notificationService = new Intent(getApplicationContext(), NotificationService.class);
+        startService(notificationService);
+    }
+
 
     private boolean getUserFromPreference() {
         final SharedPreferences preferences = getSharedPreferences(SharedPreferencesStatics.PREFS_FILE, MODE_PRIVATE);

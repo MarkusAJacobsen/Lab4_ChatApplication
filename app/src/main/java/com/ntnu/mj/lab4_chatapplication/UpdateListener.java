@@ -9,4 +9,5 @@ import java.util.ArrayList;
 public interface UpdateListener {
     void UpdateMessages(ArrayList<Message> newMessages);
     void UpdateUsers(ArrayList<User> newUsers);
+    void NotifyMessageNotificationManager(Message newMessage);
 }

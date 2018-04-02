@@ -96,7 +96,6 @@ public class NetworkClient {
                                         if(!hit) {
                                             Message msg = new Message(doc.getId(), doc.getString("timestamp"), doc.getString("username"), doc.getString("description"));
                                             localCache.add(msg);
-                                            Log.d("Adding message", msg.getId());
                                         }
                                     }
                                     break;
@@ -146,10 +145,18 @@ public class NetworkClient {
                 });
     }
 
+    private Message getLatestMessage(){
+        if(!this.resultCache.isEmpty()) {
+            return this.resultCache.get(0);
+        }
+        return null;
+    }
+
     public void triggerListeners(){
         for(UpdateListener listener : listeners) {
             listener.UpdateMessages((ArrayList<Message>) getMessages());
             listener.UpdateUsers((ArrayList<User>) getUsers());
+            listener.NotifyMessageNotificationManager(getLatestMessage());
         }
     }
 

@@ -10,9 +10,16 @@ import java.util.ArrayList;
 
 public class CustomObserver implements UpdateListener {
     ArrayList<DataModel> targets = new ArrayList<>();
+    ArrayList<NotificationModel> notificationTargets = new ArrayList<>();
+
     public CustomObserver(NetworkClient model, DataModel target) {
         model.registerListener(this);
         targets.add(target);
+    }
+
+    public CustomObserver(NetworkClient model, NotificationModel target) {
+        model.registerListener(this);
+        notificationTargets.add(target);
     }
 
     @Override
@@ -28,6 +35,13 @@ public class CustomObserver implements UpdateListener {
         for(DataModel target : targets) {
             target.setUsers(newUsers);
             Log.d("Updating class","");
+        }
+    }
+
+    @Override
+    public void NotifyMessageNotificationManager(Message newMessage) {
+        for(NotificationModel target : notificationTargets) {
+            target.newMessageReceived(newMessage);
         }
     }
 }
