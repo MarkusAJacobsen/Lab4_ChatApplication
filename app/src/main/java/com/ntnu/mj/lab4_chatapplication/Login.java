@@ -118,7 +118,8 @@ public class Login extends AppCompatActivity{
 
                                         }
                                     });
-                            finish();
+
+                            startMain();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -127,7 +128,6 @@ public class Login extends AppCompatActivity{
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
 
