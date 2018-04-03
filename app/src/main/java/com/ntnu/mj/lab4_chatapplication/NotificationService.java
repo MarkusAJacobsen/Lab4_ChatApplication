@@ -78,6 +78,9 @@ public class NotificationService extends Service {
         return START_NOT_STICKY;
     }
 
+    /**
+     * Get the logged in user according to SharedPreferences
+     */
     private void getLoggedInUser(){
         SharedPreferences sp = getSharedPreferences("Preferences", MODE_PRIVATE);
         userName = sp.getString(SharedPreferencesStatics.FIELD_USERNAME, null);
@@ -130,6 +133,9 @@ public class NotificationService extends Service {
         return isRunning;
     }
 
+    /**
+     * The class which actually does the network polling and throwing notifications
+     */
     private class PollTask extends AsyncTask<Void, Void, Void> {
         private boolean newMessage = false;
         private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -143,6 +149,9 @@ public class NotificationService extends Service {
             return null;
         }
 
+        /**
+         * Run Check every N second indefinitely
+         */
         private void createTimedChecker(){
             Timer timer = new Timer();
 
@@ -156,6 +165,9 @@ public class NotificationService extends Service {
             timer.scheduleAtFixedRate(doAsync, 30000, 30000);
         }
 
+        /**
+         * If newMessage is true, create notification and reset newMessage
+         */
         private void check() {
             if(newMessage) {
                 createNotification(getLatestMessage());

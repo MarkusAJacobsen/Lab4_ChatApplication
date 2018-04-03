@@ -19,6 +19,9 @@ import static android.R.layout.simple_list_item_1;
  * Created by markusja on 3/12/18.
  */
 
+/**
+ * Global fragment is the view of the global chat
+ */
 public class GlobalFragment extends android.support.v4.app.Fragment implements DataModel {
     private Button mSend;
     private TextView mMessage;
@@ -31,6 +34,13 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
     private ArrayAdapter adapter;
     private NetworkClient client;
 
+    /**
+     * Create and return a view
+     * @param inflater LayoutInflatar
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -65,6 +75,10 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
         return globalView;
     }
 
+    /**
+     * After parent activity has been created, fetch some data from it
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -75,7 +89,9 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
         client.registerListener(new CustomObserver(client, this));
     }
 
-
+    /**
+     * Trigger all listener with client when the app is reopened
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -95,6 +111,10 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
         mGlobalChat.setAdapter(adapter);
     }
 
+    /**
+     * Clear and readd new messages
+     * @param messages List<Message>
+     */
     @Override
     public void setMessages(List<Message> messages) {
         this.messages.clear();
@@ -103,6 +123,10 @@ public class GlobalFragment extends android.support.v4.app.Fragment implements D
         syncUser();
     }
 
+    /**
+     * No-op
+     * @param users
+     */
     @Override
     public void setUsers(List<User> users) {}
 }

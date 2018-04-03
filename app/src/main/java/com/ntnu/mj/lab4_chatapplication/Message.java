@@ -10,20 +10,38 @@ import java.util.Locale;
  * Created by markusja on 3/9/18.
  */
 
+/**
+ * Model for a message
+ */
 public class Message {
     private String id;
     private String timestamp;
     private String username;
     private String description;
 
+    /**
+     * Empty constructor
+     */
     public Message(){}
 
+    /**
+     * New message constructor
+     * @param username String
+     * @param description String
+     */
     public Message(String username, String description) {
         this.timestamp = createTimestamp();
         this.username = username;
         this.description = description;
     }
 
+    /**
+     * New Message constructor
+     * @param id String
+     * @param timestamp String
+     * @param username String
+     * @param description String
+     */
     public Message(String id, String timestamp, String username, String description) {
         this.id = id;
         this.timestamp = timestamp;
@@ -31,6 +49,7 @@ public class Message {
         this.description = description;
     }
 
+    /////////////Setters and Getters///////////////////
     public String getTimestamp() {
         return timestamp;
     }
@@ -55,7 +74,20 @@ public class Message {
         this.description = description;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    //////////Setters and getters end//////////////
+
+    /**
+     * Create a timestamp
+     * @return String
+     */
     public String createTimestamp (){
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -74,11 +106,5 @@ public class Message {
                 "Sent: " + this.timestamp;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }

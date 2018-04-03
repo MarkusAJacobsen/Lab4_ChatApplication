@@ -9,6 +9,9 @@ import java.util.List;
  * Created by markusja on 3/9/18.
  */
 
+/**
+ * User model
+ */
 public class User {
     private String name;
     private String userId;

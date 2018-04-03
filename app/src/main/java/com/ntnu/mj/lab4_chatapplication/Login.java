@@ -30,6 +30,9 @@ import static android.content.ContentValues.TAG;
  * Created by markusja on 3/11/18.
  */
 
+/**
+ * When the app is opened the first time, Login a user
+ */
 public class Login extends AppCompatActivity{
     private User user = null;
     private FirebaseUser fbUser = null;
@@ -38,6 +41,10 @@ public class Login extends AppCompatActivity{
     private TextView mUsername;
     private Button mLogin;
 
+    /**
+     * Set up GUI elements
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,15 +15,19 @@ import java.util.List;
 
 import static android.R.layout.simple_list_item_1;
 
+/**
+ * Main activity holding to fragments in a tab view kinda way
+ */
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
 
     private User user = null;
     private NetworkClient client;
-    private boolean mIsBound;
 
-
-
+    /**
+     * Set up GUI elements
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getUserFromPreference();
@@ -46,6 +50,9 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    /**
+     * Start the background service
+     */
     private void setUpBackgroundWorker(){
         Intent notificationService = new Intent(getApplicationContext(), NotificationService.class);
         startService(notificationService);

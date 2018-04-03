@@ -8,6 +8,10 @@ import android.content.SharedPreferences;
  * Created by markusja on 3/12/18.
  */
 
+/**
+ * If user is not present in SharedPreferences, launch Login,
+ * else launch MainActivity
+ */
 public class MainApplication extends Application {
     @Override
     public void onCreate(){

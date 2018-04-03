@@ -13,6 +13,9 @@ import java.util.List;
  * Created by markusja on 3/12/18.
  */
 
+/**
+ * Activity containing a list of a users messages
+ */
 public class UserMessagesListActivity extends AppCompatActivity implements DataModel {
     private User user;
     private ArrayAdapter adapter;
@@ -20,7 +23,10 @@ public class UserMessagesListActivity extends AppCompatActivity implements DataM
     private ArrayList<Message> userMessages = new ArrayList<>();
     private NetworkClient client;
 
-
+    /**
+     * Set up GUI elements
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,13 @@ public class UserMessagesListActivity extends AppCompatActivity implements DataM
         adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, userMessages);
         userMessageList.setAdapter(adapter);
 
+        setUpListeners();
+    }
+
+    /**
+     * Create a NetworkClient and register listeners
+     */
+    private void setUpListeners(){
         String username = getIntent().getStringExtra("name");
         user = new User(username, "");
 
@@ -39,6 +52,9 @@ public class UserMessagesListActivity extends AppCompatActivity implements DataM
         client.triggerListeners();
     }
 
+    /**
+     * Go back to the MainActivity view
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(UserMessagesListActivity.this, MainActivity.class);
@@ -53,6 +69,10 @@ public class UserMessagesListActivity extends AppCompatActivity implements DataM
     @Override
     public void setUsers(List<User> users) {}
 
+    /**
+     * Connect users and their messages
+     * @param messages ArrayList<Message>
+     */
     private void syncUser(ArrayList<Message> messages) {
         userMessages.clear();
         for(Message msg : messages){

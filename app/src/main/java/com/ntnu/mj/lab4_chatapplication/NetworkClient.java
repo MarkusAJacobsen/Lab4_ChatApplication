@@ -28,6 +28,9 @@ import static android.content.ContentValues.TAG;
  * Created by markusja on 3/9/18.
  */
 
+/**
+ * Component for handling the network operations
+ */
 public class NetworkClient {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String MESSAGES_COLLECTION = "messages";
@@ -39,6 +42,9 @@ public class NetworkClient {
     ArrayList<User> userCache;
     ArrayList<UpdateListener> listeners = new ArrayList<>();
 
+    /**
+     * Constructor
+     */
     public NetworkClient() {
         resultCache = new ArrayList<>();
         userCache = new ArrayList<>();
@@ -46,6 +52,11 @@ public class NetworkClient {
         fetchMessages();
     }
 
+    /**
+     * Publish a message to firestore
+     * @param message Message
+     * @return String - The message id as created in firestore
+     */
     public String publishMessage(Message message) {
         final String[] messageId = new String[1];
 
@@ -69,6 +80,10 @@ public class NetworkClient {
         return messageId[0];
     }
 
+    /**
+     * Fetch all messages, contains a onEvent listener. Meaning that once this function is
+     * called, it will receive updates when a new entry is inserted
+     */
     public void fetchMessages(){
         db.collection("messages")
                 .orderBy(FIELD_TIMESTAMP, Query.Direction.DESCENDING)
@@ -118,6 +133,9 @@ public class NetworkClient {
                 });
     }
 
+    /**
+     * Fetch users from firestore
+     */
     public void fetchUsers() {
 
         db.collection("users")
@@ -145,6 +163,11 @@ public class NetworkClient {
                 });
     }
 
+    /**
+     * Since ResultCache is sorted by time, the first element will
+     * always be the latest entry
+     * @return
+     */
     private Message getLatestMessage(){
         if(!this.resultCache.isEmpty()) {
             return this.resultCache.get(0);
@@ -152,6 +175,9 @@ public class NetworkClient {
         return null;
     }
 
+    /**
+     * Trigger all registered listeners
+     */
     public void triggerListeners(){
         for(UpdateListener listener : listeners) {
             listener.UpdateMessages((ArrayList<Message>) getMessages());
@@ -160,10 +186,15 @@ public class NetworkClient {
         }
     }
 
+    /**
+     * Register a listener
+     * @param object CustomObserver
+     */
     public void registerListener(CustomObserver object) {
         listeners.add(object);
     }
 
+    ///////////Setters and getters /////////////////////////
     public List<Message> getMessages(){
         return this.resultCache;
     }
@@ -179,6 +210,6 @@ public class NetworkClient {
     public void setUsers(ArrayList<User> newUsers) {
         this.userCache = newUsers;
     }
-
+    //////////End setters and getters//////////////////////
 
 }

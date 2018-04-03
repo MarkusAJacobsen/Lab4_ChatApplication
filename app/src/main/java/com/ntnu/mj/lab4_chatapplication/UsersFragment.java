@@ -16,6 +16,9 @@ import java.util.List;
  * Created by markusja on 3/12/18.
  */
 
+/**
+ * Fragment listing all users from firestore
+ */
 public class UsersFragment extends android.support.v4.app.Fragment implements DataModel {
     private NetworkClient client;
     private MainActivity parent;
@@ -23,6 +26,13 @@ public class UsersFragment extends android.support.v4.app.Fragment implements Da
     private ListView usersListView;
     private List<User> userList = new ArrayList<>();
 
+    /**
+     * Create and return View
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -41,6 +51,9 @@ public class UsersFragment extends android.support.v4.app.Fragment implements Da
         return userView;
     }
 
+    /**
+     * When reopened, trigger listeners with the client
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -57,6 +70,10 @@ public class UsersFragment extends android.support.v4.app.Fragment implements Da
         this.adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Custom OnItemClickListener. Opens the UserMessagesListActivity when a list item
+     * is pressed
+     */
     private class UserClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
